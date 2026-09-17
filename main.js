@@ -9,7 +9,7 @@
 //
 // 할 일 (P3) — 아래 TODO (P3) 자리에 console.log 세 부분
 //   1. 첫 줄: 도시, 나라, 좌표.        예) Busan, South Korea (35.10, 129.04)      좌표는 소수 2자리 → toFixed(2)
-//   2. 둘째 줄: 현재 기온과 날씨.       예) Now: 26.1°C, partly cloudy               단위는 fc.now.unit 에서
+//   2. 둘째 줄: 현재 기온과 날씨.       예) Now: 26.1°C, partly cloudy               기온 toFixed(1), 단위는 fc.now.unit 에서
 //   3. 날마다 한 줄: 요일 날짜, 최저, 최고, 날씨.
 //      예) Thu 09-17  min 22.1  max 28.4  partly cloudy                              기온은 소수 1자리 → toFixed(1)
 //   요일 날짜는 아래 label(date) 이, 날씨 단어는 wmo.js 의 describe(code) 가 만들어 준다.
@@ -40,7 +40,7 @@ try {
 
   // TODO (P3): 세 부분 출력
   //   1. `${place.name}, ${place.country} (${lat}, ${lon})`    lat/lon 은 toFixed(2)
-  //   2. `Now: ${temp}${unit}, ${describe(code)}`
+  //   2. `Now: ${temp.toFixed(1)}${unit}, ${describe(code)}`
   //   3. 날마다: `${label(date)}  min ${min}  max ${max}  ${describe(code)}`    min/max 는 toFixed(1)
 
   // TODO (P6): --save, --offline (README 참고)

@@ -14,13 +14,15 @@
 //
 // 실행
 //   node --env-file=.env p5_kakao.js 광운대학교
-//     1. 광운대학교  서울 노원구 월계동 447-1  (37.6196, 127.0596)
-//     2. 광운대학교 새빛관  서울 노원구 월계동 447-1  (37.6193, 127.0603)
-//     3. 광운대학교 중앙도서관  서울 노원구 월계동 447-1  (37.6200, 127.0587)
-//     Now at 광운대학교: 24.3°C, overcast
+//     1. 광운대학교  서울 노원구 월계동 447-1  (37.6192, 127.0583)
+//     2. 광운대학교 동해문화예술관 대극장  서울 노원구 월계동 466  (37.6198, 127.0576)
+//     3. 광운대학교 동해문화예술관  서울 노원구 월계동 466  (37.6198, 127.0576)
+//     Now at 광운대학교: 20.7°C, clear sky
+//   (후보 2, 3 번은 카카오 검색 순위에 따라 달라질 수 있다. 형식만 같으면 된다.)
 //
 //   node p5_kakao.js 광운대학교            ← --env-file 을 빼먹으면
 //     Error: KAKAO_REST_KEY is not set. Copy .env.example to .env and run with --env-file=.env
+//   .env 파일 자체가 없으면 node 가 "node.exe: .env: not found" 를 내고 시작도 못 한다. .env.example 을 복사했는지 확인.
 //
 // 확인
 //   git status 에 .env 가 안 보여야 한다. git log -p -- .env 가 아무것도 안 찍어야 한다 (키가 한 번도 커밋된 적 없음).
@@ -59,7 +61,7 @@ try {
   // TODO: 후보마다 한 줄: `${i + 1}. ${name}  ${address}  (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`
 
   // TODO: const fc = await forecast(places[0]);   // places[0] 에 latitude/longitude 가 있어서 forecast 가 그대로 받는다
-  // TODO: `Now at ${name}: ${temp}${unit}, ${describe(code)}`
+  // TODO: `Now at ${name}: ${temp.toFixed(1)}${unit}, ${describe(code)}`
 } catch (err) {
   console.error("Error:", err.message);
   process.exit(1);

@@ -109,14 +109,16 @@ Open-Meteo의 지오코더는 "Seoul"은 알아듣지만 "광운대학교"는 �
 
 ```
 $ node --env-file=.env p5_kakao.js 광운대학교
-1. 광운대학교  서울 노원구 월계동 447-1  (37.6196, 127.0596)
-2. 광운대학교 새빛관  서울 노원구 월계동 447-1  (37.6193, 127.0603)
-3. 광운대학교 중앙도서관  서울 노원구 월계동 447-1  (37.6200, 127.0587)
-Now at 광운대학교: 24.3°C, overcast
+1. 광운대학교  서울 노원구 월계동 447-1  (37.6192, 127.0583)
+2. 광운대학교 동해문화예술관 대극장  서울 노원구 월계동 466  (37.6198, 127.0576)
+3. 광운대학교 동해문화예술관  서울 노원구 월계동 466  (37.6198, 127.0576)
+Now at 광운대학교: 20.7°C, clear sky
 
 $ node p5_kakao.js 광운대학교                 # --env-file 을 빼먹으면
 Error: KAKAO_REST_KEY is not set. Copy .env.example to .env and run with --env-file=.env
 ```
+
+후보 2, 3번은 카카오의 검색 순위에 따라 다른 장소가 나올 수 있습니다. 형식만 같으면 됩니다.
 
 마지막으로 두 가지를 확인하세요. `git status`에 `.env`가 없어야 하고, `git log -p -- .env`가 아무것도 출력하지 않아야 합니다. 후자는 키가 한 번도 커밋된 적이 없다는 뜻입니다.
 
@@ -153,8 +155,9 @@ Error: KAKAO_REST_KEY is not set. Copy .env.example to .env and run with --env-f
 | `Error: HTTP 400: {"error":true,"reason":"..."}` | 파라미터 이름이나 값이 틀림 | `reason`에 무엇이 틀렸는지 적혀 있습니다. 문서 페이지의 철자와 비교하세요. |
 | `Error: HTTP 429` | 짧은 시간에 너무 많이 호출함 | 몇 초 기다리세요. 반복문 안에서 API를 호출하지 않도록 코드를 확인합니다. |
 | `p4_compare.js`에서 도시 하나가 틀리면 나머지 도시도 안 나옴 | `Promise.allSettled` 대신 `Promise.all`을 씀 | `allSettled`는 하나가 실패해도 전체가 실패하지 않습니다. 결과마다 `r.status`를 확인하세요. |
+| `node.exe: .env: not found` (Windows) 또는 `node: .env: not found` | `--env-file=.env`를 붙였는데 `.env` 파일이 없음. Node가 파일을 못 찾아 프로그램이 시작도 안 됨 | `.env.example`을 `.env`로 복사했는지 확인하세요. `ls -a`에 `.env`가 보여야 합니다. |
 | `Error: KAKAO_REST_KEY is not set` | `--env-file=.env` 없이 실행함, 또는 `.env`의 변수 이름 오타 | `node --env-file=.env p5_kakao.js …`로 실행하세요. `.env` 내용은 정확히 `KAKAO_REST_KEY=키` 한 줄, 따옴표 없이 씁니다. |
-| `Error: HTTP 401: {"errorType":"AccessDeniedError",…}` | 키가 틀렸거나 잘렸음, 또는 헤더를 안 넣음 | REST API 키를 다시 복사하세요 (어드민 키가 아닙니다). 헤더는 `Authorization: KakaoAK <키>`이고 `KakaoAK` 뒤에 공백이 하나 있습니다. |
+| `Error: HTTP 401: {"errorType":"AccessDeniedError",…}` | 키가 틀렸거나 잘렸음, 또는 헤더를 안 넣음 | `message`를 읽으면 원인이 갈립니다. `cannot find Authorization : KakaoAK header`면 헤더가 없거나 형식이 틀린 것이고, `wrong appKey(...) format`이면 키 값이 틀린 것입니다. REST API 키를 다시 복사하세요 (어드민 키가 아닙니다). 헤더는 `Authorization: KakaoAK <키>`이고 `KakaoAK` 뒤에 공백이 하나 있습니다. |
 | `HTTP 403`, 또는 앱이나 사용량을 언급하는 에러 | 이 앱에 카카오맵 사용 설정이 꺼져 있음 | Kakao Developers → 내 앱 → **[카카오맵] → [사용 설정] → [상태] ON**. 무료 사용량은 처음 켠 앱에만 주어집니다. |
 | `Cannot find package 'chalk'` | `npm install chalk`를 안 했거나 다른 폴더에서 함 | 저장소 루트로 이동해서 `npm install chalk`를 하고 `ls node_modules/chalk`로 확인하세요. |
 
